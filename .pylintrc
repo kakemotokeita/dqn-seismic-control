@@ -1,0 +1,14 @@
+[MASTER]
+disable=
+    missing-module-docstring,
+    not-callable,
+    invalid-name,
+    missing-function-docstring,
+    missing-class-docstring,
+    global-statement
+
+[TYPECHECK]
+
+# List of members which are set dynamically and missed by Pylint inference
+# system, and so shouldn't trigger E1101 when accessed.
+generated-members=numpy.*, torch.*

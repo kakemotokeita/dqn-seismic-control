@@ -1,0 +1,7 @@
+myenv
+.ipynb_checkpoints
+.vscode
+__pycache__
+*.code-workspace
+.python-version
+.DS_Store

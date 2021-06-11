@@ -29,8 +29,8 @@ _, _, state_size = init_state.size()
 
 n_actions = env.naction     # 選択できるアクションの数
 
-policy_net = DQN(state_size, n_actions).to(device)  # 方策を求めるためのネットワーク
-target_net = DQN(state_size, n_actions).to(device)  # 最適化対象のネットワーク
+policy_net = DQN(state_size, n_actions, device).to(device)  # 方策を求めるためのネットワーク
+target_net = DQN(state_size, n_actions, device).to(device)  # 最適化対象のネットワーク
 target_net.load_state_dict(policy_net.state_dict())
 target_net.eval() # 推論モードにする
 
@@ -96,7 +96,7 @@ def optimize_model():
     expected_state_action_values = (next_state_values * GAMMA) + reward_batch
 
     # Huber loss（実際に取ったアクションの価値と、本来期待されたアクションの価値を比較して損失を計算）
-    loss = F.smooth_l1_loss(state_action_values, expected_state_action_values.unsqueeze(1).type(torch.FloatTensor))
+    loss = F.smooth_l1_loss(state_action_values, expected_state_action_values.unsqueeze(1).type(torch.FloatTensor).to(device))
 
     # モデルの最適化
     optimizer.zero_grad()

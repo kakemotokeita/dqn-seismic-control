@@ -1,11 +1,13 @@
+import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
 
 class DQN(nn.Module):
 
-    def __init__(self, s, outputs):
+    def __init__(self, s, outputs, device = None):
         super(DQN, self).__init__()
+        self.device = device if device else torch.device("cpu")
         self.conv1 = nn.Conv1d(1, 16, kernel_size=2, stride=1)
         self.bn1 = nn.BatchNorm1d(16)
         self.conv2 = nn.Conv1d(16, 32, kernel_size=2, stride=1)
@@ -24,6 +26,7 @@ class DQN(nn.Module):
 
     # ネットワークの順伝播を計算して計算結果を返す
     def forward(self, x):
+        x = x.to(self.device)
         x = F.relu(self.bn1(self.conv1(x)))
         x = F.relu(self.bn2(self.conv2(x)))
         x = F.relu(self.bn3(self.conv3(x)))

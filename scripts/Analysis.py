@@ -1,6 +1,7 @@
 import urllib.request
 import numpy as np
 import openseespy.opensees as op
+import torch
 
 FREE = 0
 FIXED = 1
